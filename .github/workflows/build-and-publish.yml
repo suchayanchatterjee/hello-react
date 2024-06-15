@@ -3,7 +3,7 @@ name: Build and Publish hello-react
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build:

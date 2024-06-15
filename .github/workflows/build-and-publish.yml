@@ -29,3 +29,13 @@ jobs:
         with:
           name: hello-react-build
           path: build/
+  deploy-infra:
+    needs: build-artifacts
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Infra Pipeline
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          repository: suchayanchatterjee/hello-azure
+          event-type: react-app-publish-success
+          token: ${{ secrets.GH_TOKEN_TRIGGER_ACTION }}

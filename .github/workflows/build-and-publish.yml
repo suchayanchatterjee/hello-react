@@ -1,4 +1,5 @@
 name: Build and Release hello-react
+name: Build and Release hello-react
 
 on:
   push:
@@ -22,6 +23,14 @@ jobs:
 
       - name: Build React App
         run: npm run build
+  
+  release-artifacts:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
   
   release-artifacts:
     needs: build

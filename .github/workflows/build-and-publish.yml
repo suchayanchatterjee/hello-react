@@ -39,7 +39,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN_TRIGGER_ACTION }}
   
   trigger-infra-and-deployment:
-    needs: release
+    needs: release-artifacts
     runs-on: ubuntu-latest
     steps:
       - name: Trigger Infra Pipeline

@@ -1,4 +1,4 @@
-name: Build and Publish hello-react
+name: Build and Release hello-react
 
 on:
   push:
@@ -6,9 +6,8 @@ on:
       - master
 
 jobs:
-  build-artifacts:
+  build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -23,14 +22,24 @@ jobs:
 
       - name: Build React App
         run: npm run build
-
-      - name: Upload build artifact
-        uses: actions/upload-artifact@v4
+  
+  release-artifacts:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
         with:
-          name: hello-react-build
-          path: build/
-  deploy-infra:
-    needs: build-artifacts
+          tag_name: ${{ github.sha }}
+          release_name: Build ${{ github.sha }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN_TRIGGER_ACTION }}
+  
+  trigger-infra-and-deployment:
+    needs: release
     runs-on: ubuntu-latest
     steps:
       - name: Trigger Infra Pipeline

@@ -27,7 +27,7 @@ jobs:
         run: tar -czvf build-output.tar.gz build
 
       - name: Upload build output
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: build-output
           path: build-output.tar.gz
@@ -56,7 +56,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN_TRIGGER_ACTION }}
 
       - name: Download build output
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build-output
           path: .

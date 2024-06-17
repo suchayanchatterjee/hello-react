@@ -30,14 +30,14 @@ jobs:
       - name: Extract Commit SHA
         id: extract_sha
         run: |
-          echo "short_sha=$(echo $GITHUB_SHA | cut -c1-5)" >> $GITHUB_ENV
+          echo "short_sha=$(echo $GITHUB_SHA | cut -c1-7)" >> $GITHUB_ENV
 
       - name: Create GitHub Release
         id: create_release
         uses: actions/create-release@v1
         with:
           tag_name: v1.0.0-${{ env.short_sha }}
-          release_name: Build ${{ env.short_sha }}
+          release_name: r1.0.0-${{ env.short_sha }}
           draft: false
           prerelease: false
         env:

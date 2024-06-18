@@ -29,7 +29,7 @@ jobs:
           zip -r ../hello-react-build.zip .
           cd ..
 
-      - name: Upload build output
+      - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
           name: hello-react-build
@@ -58,18 +58,18 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN_TRIGGER_ACTION }}
 
-      - name: Download build output
+      - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
           name: hello-react-build
           path: .
-
-      - name: Upload build output as release asset
+      
+      - name: Upload build artifact as release asset
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./hello-react-build.zip
-          asset_name: hello-react-build-${{ env.short_sha }}.zip
+          asset_name: hello-react-build.zip
           asset_content_type: application/zip
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN_TRIGGER_ACTION }}

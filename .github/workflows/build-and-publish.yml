@@ -69,7 +69,7 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./hello-react-build.zip
-          asset_name: hello-react-build.zip
+          asset_name: hello-react-build-${{ env.short_sha }}.zip
           asset_content_type: application/zip
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN_TRIGGER_ACTION }}
